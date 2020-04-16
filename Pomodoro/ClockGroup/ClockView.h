@@ -1,0 +1,20 @@
+//
+//  ClockView.h
+//  Pomodoro
+//
+//  Created by Vladislav on 4/15/20.
+//  Copyright © 2020 Uladzislau Volchyk. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface ClockView : UIView
+
+- (void)runAnimation:(NSTimeInterval)duration;
+- (void)changeColorTo:(UIColor *)color;
+
+@end
+
+NS_ASSUME_NONNULL_END

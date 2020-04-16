@@ -14,6 +14,7 @@
 		86CE34C824473EDE00EE1A7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86CE34C724473EDE00EE1A7E /* Assets.xcassets */; };
 		86CE34CB24473EDE00EE1A7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86CE34C924473EDE00EE1A7E /* LaunchScreen.storyboard */; };
 		86CE34CE24473EDE00EE1A7E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CE34CD24473EDE00EE1A7E /* main.m */; };
+		86CE34DA2447741700EE1A7E /* ClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CE34D92447741700EE1A7E /* ClockView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		86CE34CA24473EDE00EE1A7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		86CE34CC24473EDE00EE1A7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86CE34CD24473EDE00EE1A7E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		86CE34D82447741700EE1A7E /* ClockView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClockView.h; sourceTree = "<group>"; };
+		86CE34D92447741700EE1A7E /* ClockView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClockView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +64,7 @@
 		86CE34BA24473EDD00EE1A7E /* Pomodoro */ = {
 			isa = PBXGroup;
 			children = (
+				86CE34D42447737B00EE1A7E /* ClockGroup */,
 				86CE34BB24473EDD00EE1A7E /* AppDelegate.h */,
 				86CE34BC24473EDD00EE1A7E /* AppDelegate.m */,
 				86CE34BE24473EDD00EE1A7E /* SceneDelegate.h */,
@@ -74,6 +78,15 @@
 				86CE34CD24473EDE00EE1A7E /* main.m */,
 			);
 			path = Pomodoro;
+			sourceTree = "<group>";
+		};
+		86CE34D42447737B00EE1A7E /* ClockGroup */ = {
+			isa = PBXGroup;
+			children = (
+				86CE34D82447741700EE1A7E /* ClockView.h */,
+				86CE34D92447741700EE1A7E /* ClockView.m */,
+			);
+			path = ClockGroup;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				86CE34C324473EDD00EE1A7E /* ViewController.m in Sources */,
+				86CE34DA2447741700EE1A7E /* ClockView.m in Sources */,
 				86CE34BD24473EDD00EE1A7E /* AppDelegate.m in Sources */,
 				86CE34CE24473EDE00EE1A7E /* main.m in Sources */,
 				86CE34C024473EDD00EE1A7E /* SceneDelegate.m in Sources */,

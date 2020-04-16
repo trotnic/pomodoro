@@ -7,10 +7,13 @@
 //
 
 #import "ViewController.h"
+#import "ClockView.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *fireButton;
+//@property (weak, nonatomic) IBOutlet UILabel *timerLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;
+@property (strong, nonatomic) IBOutlet ClockView *clock;
 
 @property (weak, nonatomic) NSTimer *timer;
 @property (nonatomic) NSUInteger secondsRemain;
@@ -27,10 +30,11 @@
     [self.fireButton.layer setBorderWidth:1.0];
     [self.fireButton.layer setCornerRadius:5.0];
     [self.fireButton setTitle:@"Begin a work" forState:UIControlStateNormal];
-    
+
+
     [self.timerLabel.layer setBorderWidth:1.0];
     [self.timerLabel.layer setCornerRadius:5.0];
-    
+
     [self.fireButton addTarget:self action:@selector(setupWorkTimer) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -38,6 +42,9 @@
     if([self.timer isValid]) {
         [self.timer invalidate];
     }
+    
+    [self.clock changeColorTo:UIColor.systemRedColor];
+    [self.clock runAnimation:1200];
     
     [self.timerLabel setText:@"20:00"];
     self.secondsRemain = 1200;
@@ -52,6 +59,9 @@
     if([self.timer isValid]) {
         [self.timer invalidate];
     }
+    
+    [self.clock changeColorTo:UIColor.systemGreenColor];
+    [self.clock runAnimation:300];
     
     [self.timerLabel setText:@"5:00"];
     self.secondsRemain = 300;
