@@ -10,10 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface ClockView : UIView
 
-- (void)runAnimation:(NSTimeInterval)duration;
 - (void)changeColorTo:(UIColor *)color;
+- (void)runAnimation:(NSTimeInterval)duration;
+- (void)pauseAnimation;
+- (void)resumeAnimation;
 
 @end
 

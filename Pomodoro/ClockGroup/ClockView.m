@@ -11,6 +11,8 @@
 @interface ClockView ()
 
 @property (strong, nonatomic) CAShapeLayer *ring;
+@property (strong, nonatomic) UIViewPropertyAnimator *animator;
+@property (strong, nonatomic) UIColor *currentColor;
 
 @end
 
@@ -26,11 +28,28 @@
 }
 
 - (void)changeColorTo:(UIColor *)color {
-    self.ring.strokeColor = color.CGColor;
+    self.currentColor = color;
+    self.ring.strokeColor = self.currentColor.CGColor;
+}
+
+- (void)pauseAnimation {
+    CFTimeInterval pausedTime = [self.ring convertTime:CACurrentMediaTime() fromLayer:nil];
+    self.ring.speed  = 0.0;
+    self.ring.timeOffset = pausedTime;
+}
+
+- (void)resumeAnimation {
+    CFTimeInterval pausedTime = self.ring.timeOffset;
+    self.ring.speed = 1.0;
+    self.ring.timeOffset = 0.0;
+    self.ring.beginTime = 0.0;
+    CFTimeInterval timeSincePause = [self.ring convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
+    self.ring.beginTime = timeSincePause;
+    self.ring.strokeColor = self.currentColor.CGColor;
 }
 
 - (void)runAnimation:(NSTimeInterval)duration {
-    
+    [self resumeAnimation];
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
     animation.duration = duration;
     animation.fromValue = [NSNumber numberWithDouble:1.0];
@@ -48,11 +67,14 @@
     layer.lineWidth = 20.0;
     layer.fillColor = UIColor.clearColor.CGColor;
     
+    
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:radius];
 
     layer.path = path.CGPath;
     layer.strokeColor = UIColor.redColor.CGColor;
     self.ring = layer;
+    self.ring.strokeStart = 0.0;
+    self.ring.strokeEnd = 10.0;
     [self.layer addSublayer:self.ring];
     
 }
