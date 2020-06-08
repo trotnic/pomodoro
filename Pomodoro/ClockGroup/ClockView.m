@@ -27,6 +27,15 @@
     return self;
 }
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setupView];
+    }
+    return self;
+}
+
 - (void)changeColorTo:(UIColor *)color {
     self.currentColor = color;
     self.ring.strokeColor = self.currentColor.CGColor;
@@ -59,7 +68,6 @@
 }
 
 - (void)setupView {
-    
     CGFloat radius = self.bounds.size.width / 2;
     
     CAShapeLayer *layer = [CAShapeLayer layer];
@@ -69,7 +77,7 @@
     
     
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:radius];
-
+    
     layer.path = path.CGPath;
     layer.strokeColor = UIColor.redColor.CGColor;
     self.ring = layer;
@@ -77,6 +85,14 @@
     self.ring.strokeEnd = 10.0;
     [self.layer addSublayer:self.ring];
     
+}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    CGFloat radius = sqrt(pow(point.x - self.bounds.size.width / 2, 2) + pow(point.y - self.bounds.size.height / 2, 2));
+    if(radius > self.bounds.size.width / 2) {
+        return false;
+    }
+    return true;
 }
 
 @end

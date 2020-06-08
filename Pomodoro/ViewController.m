@@ -21,9 +21,9 @@ typedef NS_ENUM(NSInteger, FireState) {
 
 
 @interface ViewController ()
-@property (weak, nonatomic) IBOutlet UIButton *fireButton;
-@property (weak, nonatomic) IBOutlet UILabel *timerLabel;
-@property (strong, nonatomic) IBOutlet ClockView *clock;
+@property (strong, nonatomic) UIButton *fireButton;
+@property (strong, nonatomic) UILabel *timerLabel;
+@property (strong, nonatomic) ClockView *clock;
 
 @property (nonatomic, assign) ClockState clockNextState;
 @property (nonatomic, assign) FireState fireState;
@@ -39,13 +39,53 @@ typedef NS_ENUM(NSInteger, FireState) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.clock = [[ClockView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width - 100, self.view.bounds.size.width - 100)];
+    self.clock.translatesAutoresizingMaskIntoConstraints = false;
+    [self.view addSubview:self.clock];
+    
+    self.timerLabel = [UILabel new];
+    self.timerLabel.translatesAutoresizingMaskIntoConstraints = false;
+    [self.view addSubview:self.timerLabel];
+    
+    self.fireButton = [UIButton new];
+    self.fireButton.translatesAutoresizingMaskIntoConstraints = false;
+    [self.view addSubview:self.fireButton];
+    
+    [self configureFireButton];
+    
+    [NSLayoutConstraint activateConstraints: @[
+        [self.clock.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:50],
+        [self.clock.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-50],
+        [self.clock.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:100],
+        [self.clock.heightAnchor constraintEqualToAnchor:self.clock.widthAnchor multiplier:1.0],
+        
+        [self.timerLabel.centerXAnchor constraintEqualToAnchor:self.clock.centerXAnchor],
+        [self.timerLabel.centerYAnchor constraintEqualToAnchor:self.clock.centerYAnchor],
+        
+        [self.fireButton.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+        [self.fireButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+        [self.fireButton.topAnchor constraintEqualToAnchor:self.clock.bottomAnchor constant:100],
+    ]];
+    
     self.clockNextState = kWorkState;
     self.fireState = kFiredState;
     
     UITapGestureRecognizer *reco = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleClock:)];
     [self.clock addGestureRecognizer:reco];
-    
     [self setupStateButton];
+}
+
+- (void)configureFireButton {
+    
+    if(self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+        [self.fireButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    } else {
+        [self.fireButton setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+    }
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [self configureFireButton];
 }
 
 - (void)toggleClock:(UITapGestureRecognizer *)sender {
